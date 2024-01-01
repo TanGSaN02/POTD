@@ -1,0 +1,60 @@
+Array Pair Sum Divisibility Problem
+
+Solution:
+
+#User function Template for python3
+from collections import defaultdict
+class Solution:
+    def canPair(self, nuns, k):
+        # Code here
+        if(len(nuns)%2!=0):
+            return False
+        d=defaultdict(int)
+        for i in nuns:
+            d[i%k]+=1
+        if(0 in d):
+           if(d[0]%2==0):
+               d[0]=0
+           else:
+               return False
+        for i in d:
+            if(d[i]==0):
+                continue
+            if(((k-i) in d) and (d[k-i]==d[i])):
+                d[k-i]=0
+                d[i]=0
+            else:
+                return False
+        return True
+
+2)from collections import defaultdict
+
+class Solution:
+    def canPair(self, nums, k):
+        # Check if the length of nums is even
+        if len(nums) % 2 != 0:
+            return False
+
+        # Create a defaultdict to store the remainder counts
+        remainder_counts = defaultdict(int)
+
+        # Count the remainders of each number when divided by k
+        for num in nums:
+            remainder_counts[num % k] += 1
+
+        # Handle the case when remainder is 0 separately
+        if remainder_counts[0] % 2 != 0:
+            return False
+
+        # Check pairs for remaining non-zero remainders
+        for remainder in remainder_counts:
+            if remainder == 0:
+                continue
+
+            complement = k - remainder
+
+            # Check if the complement exists and has the same count
+            if remainder_counts[remainder] != remainder_counts[complement]:
+                return False
+
+        return True
