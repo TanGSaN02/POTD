@@ -1,0 +1,22 @@
+2610. Convert an Array Into a 2D Array With Conditions
+
+Solution:
+
+from collections import defaultdict
+class Solution:
+    def findMatrix(self, nums: List[int]) -> List[List[int]]:
+        d=defaultdict(int)
+        for i in nums:
+            d[i]+=1
+        s=set(d.keys())
+        res=[]
+        while(len(s)!=0):
+            l=[]
+            for i in d:
+                if d[i]!=0:
+                    l.append(i)
+                    d[i]-=1
+                    if(d[i]==0):
+                        s.remove(i)
+            res.append(l)
+        return res
