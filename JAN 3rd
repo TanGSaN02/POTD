@@ -1,0 +1,27 @@
+2125. Number of Laser Beams in a Bank
+
+Solution:
+
+from typing import List
+
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        # Initialize old count of '1's in the previous row to 0
+        old = 0
+        # Initialize the total number of laser beams to 0
+        ans = 0
+        
+        # Iterate through each row in the bank
+        for i in bank:
+            # Count the number of '1's in the current row
+            new = i.count('1')
+            
+            # If there are security devices in the current row
+            if new != 0:
+                # Update the total number of laser beams by adding the product of old and new
+                ans += old * new
+                # Update the old count to the current row's count of '1's
+                old = new
+        
+        # Return the total number of laser beams
+        return ans
