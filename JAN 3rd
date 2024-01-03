@@ -1,0 +1,28 @@
+Smallest window containing 0, 1 and 2
+
+Solution:
+
+# User function Template for python3
+class Solution:
+    def smallestSubstring(self, S):
+        # Initialize a dictionary to store the last index positions of characters '0', '1', and '2'.
+        d = {'0': -1, '1': -1, '2': -1}
+        # Initialize a variable to store the result (length of the smallest substring)
+        res = len(S) + 1
+
+        # Iterate through the characters of the string
+        for i in range(len(S)):
+            # Update the last index position of the current character in the dictionary
+            d[S[i]] = i
+
+            # Check if all three characters have been encountered at least once
+            if d['0'] != -1 and d['1'] != -1 and d['2'] != -1:
+                # Update the result with the length of the current substring containing all three characters
+                res = min(max(d['0'], d['1'], d['2']) - min(d['0'], d['1'], d['2']) + 1, res)
+
+        # If the result is still the initial value, no valid substring is found, return -1
+        if res == len(S) + 1:
+            return -1
+
+        # Return the result (length of the smallest substring containing all three characters)
+        return res
