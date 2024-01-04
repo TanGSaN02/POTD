@@ -1,0 +1,32 @@
+Find element occuring once when all other are present thrice
+
+Solution:
+
+# User function Template for python3
+
+class Solution:
+    def singleElement(self, arr, N):
+        # Initialize variables to keep track of bits appearing once and twice
+        ones = 0
+        twos = 0
+        
+        # Variable to identify common bits between ones and twos
+        common_bit_mask = 0
+        
+        # Iterate through the array
+        for i in range(len(arr)):
+            # Update twos with bits that are set in both ones and the current array element
+            twos = twos | (ones & arr[i])
+            
+            # Update ones by XORing it with the current array element
+            ones = ones ^ arr[i]
+            
+            # Calculate the common bits between ones and twos
+            common_bit_mask = ~(ones & twos)
+            
+            # Remove common bits from ones and twos
+            ones &= common_bit_mask
+            twos &= common_bit_mask
+        
+        # The remaining value in 'ones' is the single occurring element
+        return ones
