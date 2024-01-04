@@ -1,0 +1,27 @@
+Minimum Number of Operations to Make Array Empty
+
+Solution:
+
+from collections import Counter
+from typing import List
+from math import ceil
+
+class Solution:
+    def minOperations(self, nums: List[int]) -> int:
+        # Count the occurrences of each number in the input list
+        counter = Counter(nums)
+        
+        # Initialize the variable to store the total operations required
+        ans = 0
+        
+        # Iterate through the count of each unique number
+        for c in counter.values():
+            # If a number appears only once, it's not possible to form triplets
+            if c == 1: 
+                return -1
+            
+            # Calculate the minimum operations required to form triplets for the current number
+            ans += ceil(c / 3)
+        
+        # Return the total operations required
+        return ans
